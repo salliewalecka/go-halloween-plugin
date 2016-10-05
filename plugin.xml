@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<go-plugin id="testplugin.somePlugin" version="1">
+    <about>
+        <name>Halloween Plugin</name>
+        <version>1.0.0</version>
+        <target-go-version>15.3.0</target-go-version>
+        <description>Wishing you a happy Halloween!</description>
+        <vendor>
+            <name>ThoughtWorks Go Plugin Team</name>
+            <url>www.thoughtworks.com</url>
+        </vendor>
+        <target-os>
+            <value>Mac OS X</value>
+        </target-os>
+    </about>
+</go-plugin>
