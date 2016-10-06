@@ -18,6 +18,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 @Extension
 public class HalloweenPlugin implements GoPlugin {
@@ -36,7 +37,7 @@ public class HalloweenPlugin implements GoPlugin {
         } else if ("view".equals(requestMessage.requestName())) {
             return handleGetViewRequest();
         } else if("execute".equals(requestMessage.requestName())) {
-            return handleTaskExecution();
+            return handleTaskExecution(requestMessage);
         }
         else return null;
     }
@@ -47,12 +48,12 @@ public class HalloweenPlugin implements GoPlugin {
 
     private GoPluginApiResponse handleGetConfigRequest() {
         HashMap config = new HashMap();
-        HashMap url = new HashMap();
-        url.put("display-order", "0");
-        url.put("default-value", "");
-        url.put("secure", false);
-        url.put("required", false);
-        config.put("url", url);
+        HashMap pumpkin = new HashMap();
+        pumpkin.put("display-order", "0");
+        pumpkin.put("default-value", "");
+        pumpkin.put("secure", false);
+        pumpkin.put("required", true);
+        config.put("pumpkin", pumpkin);
 
         return createResponse(config);
     }
@@ -72,11 +73,16 @@ public class HalloweenPlugin implements GoPlugin {
         HashMap validation = new HashMap();
         validation.put("errors", new HashMap());
         return createResponse(validation);
-
     }
 
-    private GoPluginApiResponse handleTaskExecution() {
-        JobConsoleLogger.getConsoleLogger().printLine(constructPumpkinString());
+    private GoPluginApiResponse handleTaskExecution(GoPluginApiRequest requestMessage) {
+        Map requestMap = (Map) new GsonBuilder().create().fromJson(requestMessage.requestBody(), Object.class);
+        Map configMap = (Map) requestMap.get("config");
+        Map pumpkinMap = (Map) configMap.get("pumpkin");
+        String pumpkinType = (String) pumpkinMap.get("value");
+        String pumpkin = new PumpkinFactory().getPumpkin(pumpkinType);
+
+        JobConsoleLogger.getConsoleLogger().printLine(pumpkin);
         HashMap result = new HashMap();
         result.put("success", true);
         result.put("message", "Have a Spoooooky Saturday");
@@ -88,30 +94,4 @@ public class HalloweenPlugin implements GoPlugin {
         response.setResponseBody(new GsonBuilder().serializeNulls().create().toJson(body));
         return response;
     }
-
-    private String constructPumpkinString(){
-        return "\n" +
-                "                             @@@\n" +
-                "                              @@@                       H A P P Y\n" +
-                "                              @@@\n" +
-                "                      @@@@@@@@@@@@@@@@@@@@@@         H A L L O W E E N\n" +
-                "                    @@@@@@@@@@@@@@@@@@@@@@@@@@\n" +
-                "                  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" +
-                "                @@@@@@@@ @@@@@@@@@@@@@@@@ @@@@@@@@\n" +
-                "              @@@@@@@@@   @@@@@@@@@@@@@@   @@@@@@@@@\n" +
-                "            @@@@@@@@@@     @@@@@@@@@@@@     @@@@@@@@@@\n" +
-                "           @@@@@@@@@@       @@@@  @@@@       @@@@@@@@@@\n" +
-                "           @@@@@@@@@@@@@@@@@@@@    @@@@@@@@@@@@@@@@@@@@\n" +
-                "           @@@@@@@@@@@@@@@@@@        @@@@@@@@@@@@@@@@@@\n" +
-                "           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" +
-                "           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" +
-                "           @@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@\n" +
-                "            @@@@@@@@  @@ @@ @@ @@ @@ @@ @@ @  @@@@@@@@\n" +
-                "              @@@@@@@                        @@@@@@@\n" +
-                "                @@@@@@  @@ @@ @@ @@ @@ @@ @ @@@@@@\n" +
-                "                  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" +
-                "                    @@@@@@@@@@@@@@@@@@@@@@@@@@\n" +
-                "                      @@@@@@@@@@@@@@@@@@@@@@\n";
-    }
-
 }
