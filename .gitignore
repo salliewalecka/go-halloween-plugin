@@ -1,2 +1,13 @@
+# IntelliJ files
 .idea/
+
+# Maven's output dir
 target/
+
+# Gradle output directory
+build/
+
+# Gradle temp dir 
+.gradle
+
+
