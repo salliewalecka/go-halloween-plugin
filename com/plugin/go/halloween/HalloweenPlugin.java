@@ -18,6 +18,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Extension
@@ -71,7 +72,18 @@ public class HalloweenPlugin implements GoPlugin {
 
     private GoPluginApiResponse handleValidation(GoPluginApiRequest requestMessage) {
         HashMap validation = new HashMap();
-        validation.put("errors", new HashMap());
+        Map requestMap = (Map) new GsonBuilder().create().fromJson(requestMessage.requestBody(), Object.class);
+        logger.info("request map " + requestMap.toString());
+        Map pumpkinMap = (Map) requestMap.get("pumpkin");
+        logger.info("pumpkin map " + pumpkinMap.toString());
+        String pumpkinType = (String) pumpkinMap.get("value");
+        Map errors = new HashMap();
+
+        if(!PumpkinFactory.getPumpkinTypes().contains(pumpkinType)){
+            errors.put("pumpkin","Please only choose from Lisa, Cat, or Toothy");
+        }
+        logger.info("errors " + errors.toString());
+        validation.put("errors", errors);
         return createResponse(validation);
     }
 
@@ -80,7 +92,7 @@ public class HalloweenPlugin implements GoPlugin {
         Map configMap = (Map) requestMap.get("config");
         Map pumpkinMap = (Map) configMap.get("pumpkin");
         String pumpkinType = (String) pumpkinMap.get("value");
-        String pumpkin = new PumpkinFactory().getPumpkin(pumpkinType);
+        String pumpkin = PumpkinFactory.getPumpkin(pumpkinType);
 
         JobConsoleLogger.getConsoleLogger().printLine(pumpkin);
         HashMap result = new HashMap();

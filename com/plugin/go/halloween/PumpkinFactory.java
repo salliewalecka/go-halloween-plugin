@@ -1,12 +1,14 @@
 package plugin.go.halloween;
 
+import java.util.Arrays;
+import java.util.List;
 
 public class PumpkinFactory {
 
     public PumpkinFactory(){
     }
 
-    public String getPumpkin(String type){
+    public static String getPumpkin(String type){
         String pumpkin;
 
         switch (type){
@@ -26,7 +28,12 @@ public class PumpkinFactory {
         return pumpkin;
     }
 
-    private String monaLisaPumpkin(){
+    public static List<String> getPumpkinTypes(){
+        return Arrays.asList("Lisa", "Cat", "Toothy");
+    }
+
+
+    private static String monaLisaPumpkin(){
         return "..............................................Have a Mona Lisa Pumpkin!!!................................................\n" +
                 "..........................................................,.............................................................\n" +
                 ".............................................................===~,,.....................................................\n" +
@@ -97,7 +104,7 @@ public class PumpkinFactory {
     }
 
 
-    private String toothyPumpkin(){
+    private static String toothyPumpkin(){
         return "\n" +
                 "                             @@@\n" +
                 "                              @@@                       H A P P Y\n" +
@@ -122,8 +129,7 @@ public class PumpkinFactory {
                 "                      @@@@@@@@@@@@@@@@@@@@@@\n";
     }
 
-
-    private String catPumpkin(){
+    private static String catPumpkin(){
         return "                              ,''`.         _                        \n" +
                 "                        ,.,'''  '`--- ._,,'|                        \n" +
                 "                      ,'                   /                        \n" +

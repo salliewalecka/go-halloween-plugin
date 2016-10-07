@@ -2,8 +2,10 @@
     <label>Pumpkin Type:<span class="asterisk">*</span>
     </label>
     <select type="submit" ng-model="pumpkin" ng-required="true">
+        <option value=""></option>
         <option value="Lisa">Lisa</option>
         <option value="Cat">Cat</option>
         <option value="Toothy">Toothy</option>
     </select>
+    <span class="form_error" ng-show="GOINPUTNAME[pumpkin].$error.server">{{ GOINPUTNAME[pumpkin].$error.server }}</span>
 </div>
