@@ -1,5 +1,6 @@
 # IntelliJ files
 .idea/
+*.iml
 
 # Maven's output dir
 target/
