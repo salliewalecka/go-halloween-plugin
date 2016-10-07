@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<go-plugin id="testplugin.somePlugin" version="1">
+<go-plugin id="halloweenPlugin.pumpkinPlugin" version="1">
     <about>
         <name>Halloween Plugin</name>
         <version>1.0.0</version>

@@ -18,13 +18,12 @@ import org.apache.commons.io.IOUtils;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Extension
 public class HalloweenPlugin implements GoPlugin {
     private GoApplicationAccessor accessor;
-    Logger logger = Logger.getLoggerFor(HalloweenPlugin.class);
+    private Logger logger = Logger.getLoggerFor(HalloweenPlugin.class);
 
     public GoPluginIdentifier pluginIdentifier() {
         return new GoPluginIdentifier("task", Arrays.asList("1.0"));
