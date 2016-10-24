@@ -49,7 +49,7 @@ public class HalloweenPlugin implements GoPlugin {
     private GoPluginApiResponse handleGetConfigRequest() {
         HashMap config = new HashMap();
         HashMap pumpkin = new HashMap();
-        pumpkin.put("display-order", "0");
+        pumpkin.put("display-orde   r", "0");
         pumpkin.put("default-value", "");
         pumpkin.put("secure", false);
         pumpkin.put("required", true);
@@ -69,9 +69,9 @@ public class HalloweenPlugin implements GoPlugin {
         return createResponse(view);
     }
 
-    private GoPluginApiResponse handleValidation(GoPluginApiRequest requestMessage) {
+    private GoPluginApiResponse handleValidation(GoPluginApiRequest request) {
         HashMap validation = new HashMap();
-        Map requestMap = (Map) new GsonBuilder().create().fromJson(requestMessage.requestBody(), Object.class);
+        Map requestMap = (Map) new GsonBuilder().create().fromJson(request.requestBody(), Object.class);
         logger.info("request map " + requestMap.toString());
         Map pumpkinMap = (Map) requestMap.get("pumpkin");
         logger.info("pumpkin map " + pumpkinMap.toString());
